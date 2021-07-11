@@ -1,4 +1,4 @@
-package com.example.unsplash.photo_collection
+package com.example.unsplash.ui.photo_collection
 
 import android.os.Bundle
 import android.view.LayoutInflater
