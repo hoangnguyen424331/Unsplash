@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/photoCollectionFragment"
-        android:name="com.example.unsplash.photo_collection.PhotoCollectionFragment"
+        android:name="com.example.unsplash.ui.photo_collection.PhotoCollectionFragment"
         android:label="PhotoCollectionFragment" />
 
     <fragment
