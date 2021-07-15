@@ -1,5 +1,11 @@
 package com.example.unsplash.module
 
+import com.example.unsplash.ui.collection.CollectionViewModel
+import com.example.unsplash.ui.photo_collection.PhotoCollectionsViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val viewModelModule = module {}
+val viewModelModule = module {
+    viewModel { CollectionViewModel(get()) }
+    viewModel { PhotoCollectionsViewModel(get()) }
+}

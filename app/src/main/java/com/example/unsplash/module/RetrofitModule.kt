@@ -18,6 +18,14 @@ val retrofitModule = module {
     fun provideHttpClient(): OkHttpClient {
         return OkHttpClient
             .Builder()
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                val originalHttpUrl = chain.request().url
+                val url = originalHttpUrl.newBuilder()
+                    .addQueryParameter(Constant.API_CLIENT_ID, Constant.API_KEY).build()
+                request.url(url)
+                return@addInterceptor chain.proceed(request.build())
+            }
             .build()
     }
 
@@ -33,23 +41,9 @@ val retrofitModule = module {
             .build()
     }
 
-    single {
-        provideGson()
-    }
-
-    single {
-        provideGsonConverterFactory(get())
-    }
-
-    single {
-        provideHttpClient()
-    }
-
-    single {
-        provideClient(get())
-    }
-
-    single {
-        provideRetrofit(get(), get())
-    }
+    single { provideGson() }
+    single { provideHttpClient() }
+    single { provideGsonConverterFactory(get()) }
+    single { provideRetrofit(get(), get()) }
+    single { provideClient(get()) }
 }
