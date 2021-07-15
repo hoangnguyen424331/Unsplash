@@ -1,10 +1,7 @@
 package com.example.unsplash.di
 
 import android.app.Application
-import com.example.unsplash.module.apiModule
-import com.example.unsplash.module.repositoryModule
-import com.example.unsplash.module.retrofitModule
-import com.example.unsplash.module.viewModelModule
+import com.example.unsplash.module.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -18,7 +15,8 @@ class MainApplication : Application() {
                 apiModule,
                 retrofitModule,
                 viewModelModule,
-                repositoryModule
+                repositoryModule,
+                dataSourceModule
             )
         }
     }

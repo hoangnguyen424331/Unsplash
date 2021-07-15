@@ -10,4 +10,6 @@
     <string name="downloads">Downloads</string>
     <string name="likes">Likes</string>
     <string name="text_loading">Loading…</string>
+    <string name="title">Title</string>
+    <string name="counter_photo">%s Photos</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.unsplash.extentions.loadFromUrl
+import com.example.unsplash.extentions.loadUrlStaggered
 import com.example.unsplash.utils.LoadMoreRecyclerViewListener
 import com.example.unsplash.utils.RefreshRecyclerViewListener
 
@@ -18,8 +19,8 @@ fun ImageView.loadImage(url: String?) {
 }
 
 @BindingAdapter("onLoadImageStaggered")
-fun ImageView.loadImageStaggered(url: String?) {
-    loadImageStaggered(url)
+fun ImageView.loadImageStaggered(url: String) {
+    loadUrlStaggered(url)
 }
 
 @BindingAdapter(value = ["adapter"])
