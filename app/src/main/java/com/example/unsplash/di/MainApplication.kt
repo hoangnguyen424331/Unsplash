@@ -13,6 +13,7 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             modules(
                 apiModule,
+                storageModule,
                 retrofitModule,
                 viewModelModule,
                 repositoryModule,

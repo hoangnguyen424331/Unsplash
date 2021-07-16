@@ -8,4 +8,5 @@ object Constant {
     const val DEFAULT_PAGE = 1
     const val DEFAULT_ID = ""
     const val API_CLIENT_ID = "client_id"
+    const val DATABASE_NAME = "unsplash"
 }
