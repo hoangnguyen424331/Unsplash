@@ -13,6 +13,7 @@ import com.example.unsplash.ui.favorite.FavoriteFragment
 import com.example.unsplash.ui.home.HomeFragment
 import com.example.unsplash.utils.ItemBottomNav
 
+@Suppress("DEPRECATION")
 class HomePageFragment : Fragment() {
 
     private lateinit var binding: FragmentHomePageBinding

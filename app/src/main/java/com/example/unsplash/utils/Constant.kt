@@ -9,4 +9,6 @@ object Constant {
     const val DEFAULT_ID = ""
     const val API_CLIENT_ID = "client_id"
     const val DATABASE_NAME = "unsplash"
+    const val DEFAULT_ITEM = 10
+    const val RANDOM_ITEM_COUNT = 5
 }
