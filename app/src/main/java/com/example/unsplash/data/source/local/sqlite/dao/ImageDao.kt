@@ -19,5 +19,5 @@ interface ImageDao {
     suspend fun deleteImages(imageLocal: ImageLocal)
 
     @Query("SELECT * FROM imageLocal WHERE id LIKE :imageId")
-    suspend fun getImage(imageId: String?): ImageLocal
+    suspend fun getFavoriteImages(imageId: String?): ImageLocal
 }

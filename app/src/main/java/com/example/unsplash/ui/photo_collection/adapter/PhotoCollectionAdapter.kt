@@ -30,7 +30,7 @@ class PhotoCollectionAdapter : ListAdapter<PhotoCollection, PhotoCollectionsView
         holder.onBind(currentList[position])
     }
 
-    fun setOnClick(onClick: ((PhotoCollection) -> Unit)) {
+    fun setOnClickPhotoCollection(onClick: ((PhotoCollection) -> Unit)) {
         this.onClickItemViewHolder = onClick
     }
 

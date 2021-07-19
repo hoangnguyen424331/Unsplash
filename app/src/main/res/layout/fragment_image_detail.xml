@@ -78,6 +78,7 @@
             app:layout_constraintTop_toTopOf="@id/cardViewDetail" />
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/imageBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
@@ -88,6 +89,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewDetail"
+            onLoadImage="@{photoDetail.urlPhoto.thumb}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"
@@ -143,6 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
+            android:text="@{photoDetail.authorInformation.name}"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="@id/cardViewDetail"
             app:layout_constraintStart_toEndOf="@id/cardViewDetail"
@@ -189,7 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/views"
+            android:text="@{photoDetail.views.toString()}"
             android:textColor="@android:color/black"
             android:textStyle="normal"
             app:layout_constraintEnd_toStartOf="@id/textViewDownloads"
@@ -201,7 +204,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/downloads"
+            android:text="@{photoDetail.downloads.toString()}"
             android:textColor="@android:color/black"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -213,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/likes"
+            android:text="@{photoDetail.likes.toString()}"
             android:textColor="@android:color/black"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -233,8 +236,20 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewAuthorAvatar"
+                onLoadImage="@{photoDetail.authorInformation.avatar.smallAvatar}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </androidx.cardview.widget.CardView>
+
+        <include
+            android:id="@+id/progressLayout"
+            layout="@layout/loader_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="photoDetail"
+            type="com.example.unsplash.data.model.PhotoDetail" />
+    </data>
 </layout>

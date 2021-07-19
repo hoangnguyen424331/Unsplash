@@ -27,7 +27,7 @@
                 app:onLoadImageStaggered="@{collection.photoCollection.image.small}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() ->onItemClickListener.onItemClick(collection)"
+                android:onClick="@{()->onItemClickListener.onItemClick(collection)}"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
