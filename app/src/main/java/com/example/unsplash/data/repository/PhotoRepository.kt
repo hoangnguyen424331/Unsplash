@@ -3,7 +3,8 @@ package com.example.unsplash.data.repository
 import com.example.unsplash.data.source.PhotoDataSource
 import com.example.unsplash.utils.Constant.DEFAULT_PAGE
 
-class PhotoRepository(private val remote: PhotoDataSource.Remote) {
+class PhotoRepository(private val remote: PhotoDataSource.Remote,
+private val local: PhotoDataSource.Local) {
 
     suspend fun getCollection(page: Int = DEFAULT_PAGE) = remote.getCollections(page = page)
 
@@ -16,4 +17,6 @@ class PhotoRepository(private val remote: PhotoDataSource.Remote) {
     suspend fun getTopics(page: Int = DEFAULT_PAGE) = remote.getTopics(page)
 
     suspend fun getRandomPhotos() = remote.getRandomPhotos()
+
+    suspend fun getImages() = local.getImages()
 }

@@ -3,6 +3,7 @@ package com.example.unsplash.data.source
 import com.example.unsplash.data.model.Collection
 import com.example.unsplash.data.model.PhotoCollection
 import com.example.unsplash.data.model.Topic
+import com.example.unsplash.data.source.local.sqlite.entity.ImageLocal
 
 class PhotoDataSource {
 
@@ -15,5 +16,9 @@ class PhotoDataSource {
         suspend fun getTopics(page: Int): MutableList<Topic>
 
         suspend fun getRandomPhotos(): MutableList<PhotoCollection>
+    }
+
+    interface Local {
+        suspend fun getImages(): List<ImageLocal>
     }
 }
