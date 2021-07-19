@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="imageLocal"
+            type="com.example.unsplash.data.source.local.sqlite.entity.ImageLocal" />
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    onLoadImage="@{imageLocal.urlImage}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY" />

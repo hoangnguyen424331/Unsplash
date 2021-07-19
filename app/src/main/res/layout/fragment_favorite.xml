@@ -3,10 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-       app:spanCount="2"
-       tools:listitem="@layout/item_favorite"/>
+   <data>
+
+      <variable
+          name="adapter"
+          type="com.example.unsplash.ui.favorite.adapter.FavoriteAdapter" />
+
+      <variable
+          name="viewModel"
+          type="com.example.unsplash.ui.favorite.FavoriteViewModel" />
+
+   </data>
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+          app:spanCount="2"
+          tools:listitem="@layout/item_favorite"/>
 </layout>

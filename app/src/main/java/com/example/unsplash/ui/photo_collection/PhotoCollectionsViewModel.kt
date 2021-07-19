@@ -29,7 +29,7 @@ class PhotoCollectionsViewModel(private val photoRepository: PhotoRepository) :
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    private val _photoCollection = MutableLiveData<MutableList<PhotoCollection>>()
+    private val _photoCollection = MutableLiveData<MutableList<PhotoCollection>>(mutableListOf())
     private val photoCollection: LiveData<MutableList<PhotoCollection>>
         get() = _photoCollection
 

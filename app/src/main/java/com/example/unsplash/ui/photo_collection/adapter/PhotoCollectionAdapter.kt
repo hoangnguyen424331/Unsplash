@@ -51,11 +51,11 @@ class PhotoCollectionAdapter : ListAdapter<PhotoCollection, PhotoCollectionsView
 
 class PhotoCollectionsViewHolder(
     private val binding: ItemLayoutPhotoBinding,
-    private val onClickViewHolder: ((PhotoCollection) -> Unit)
+    private val onClickItemViewHolder: ((PhotoCollection) -> Unit)
 ) : RecyclerView.ViewHolder(binding.root), OnItemClickListener<PhotoCollection> {
 
     override fun onItemClick(item: PhotoCollection) {
-        onClickViewHolder(item)
+        onClickItemViewHolder(item)
     }
 
     fun onBind(photoCollection: PhotoCollection) {
