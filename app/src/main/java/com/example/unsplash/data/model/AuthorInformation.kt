@@ -8,8 +8,3 @@ data class AuthorInformation(
     @SerializedName("profile_image")
     val avatar: AvatarAuthor
 )
-
-data class AvatarAuthor(
-    @SerializedName("small")
-    val smallAvatar: String?
-)
