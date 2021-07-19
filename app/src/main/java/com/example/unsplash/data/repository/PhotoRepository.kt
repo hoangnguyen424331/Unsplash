@@ -30,6 +30,4 @@ class PhotoRepository(
     suspend fun deleteImage(imageLocal: ImageLocal) = local.deleteImage(imageLocal)
 
     suspend fun alreadyFavorite(id: String?) = local.getImage(id)
-
-    suspend fun getPhotoDetail(id: String?) = remote.getPhotoDetail(id)
 }
