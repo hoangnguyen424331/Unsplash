@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.unsplash.data.repository.PhotoRepository
 import com.example.unsplash.data.source.local.sqlite.entity.ImageLocal
-import com.example.unsplash.utils.RefreshRecyclerViewListener
 import com.example.unsplash.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +18,7 @@ class FavoriteViewModel(
         get() = _favoriteImage
 
     fun getImages() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _favoriteImage.postValue(Resource.loading(null))
             try {
                 _favoriteImage.postValue(Resource.success(photoRepository.getImages()))
