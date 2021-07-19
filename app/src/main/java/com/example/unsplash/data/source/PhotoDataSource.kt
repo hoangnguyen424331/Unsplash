@@ -22,6 +22,7 @@ class PhotoDataSource {
     }
 
     interface Local {
+
         suspend fun getImages(): List<ImageLocal>
 
         suspend fun insertImage(imageLocal: ImageLocal)

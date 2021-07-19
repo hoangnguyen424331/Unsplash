@@ -21,6 +21,8 @@ class PhotoRepository(
 
     suspend fun getRandomPhotos() = remote.getRandomPhotos()
 
+    suspend fun getPhotoDetail(id: String?) = remote.getPhotoDetail(id)
+
     suspend fun getImages() = local.getImages()
 
     suspend fun insertImage(imageLocal: ImageLocal) = local.insertImage(imageLocal)
