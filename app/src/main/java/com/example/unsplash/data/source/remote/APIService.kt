@@ -35,6 +35,6 @@ interface  APIService {
 
     @GET("/photos/{id}")
     suspend fun getPhotoDetail(
-        @Query("id") id: String?
+        @Path("id") id: String?
     ): PhotoDetail
 }

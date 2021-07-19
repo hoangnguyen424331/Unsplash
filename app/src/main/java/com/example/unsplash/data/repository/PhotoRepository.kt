@@ -4,8 +4,10 @@ import com.example.unsplash.data.source.PhotoDataSource
 import com.example.unsplash.data.source.local.sqlite.entity.ImageLocal
 import com.example.unsplash.utils.Constant.DEFAULT_PAGE
 
-class PhotoRepository(private val remote: PhotoDataSource.Remote,
-private val local: PhotoDataSource.Local) {
+class PhotoRepository(
+    private val remote: PhotoDataSource.Remote,
+    private val local: PhotoDataSource.Local
+) {
 
     suspend fun getCollection(page: Int = DEFAULT_PAGE) = remote.getCollections(page = page)
 
@@ -23,9 +25,11 @@ private val local: PhotoDataSource.Local) {
 
     suspend fun getImages() = local.getImages()
 
-    suspend fun insertImages(imageLocal: ImageLocal) = local.insertImages(imageLocal)
+    suspend fun insertImage(imageLocal: ImageLocal) = local.insertImage(imageLocal)
 
-    suspend fun deleteImages(imageLocal: ImageLocal) = local.deleteImages(imageLocal)
+    suspend fun deleteImage(imageLocal: ImageLocal) = local.deleteImage(imageLocal)
 
-    suspend fun getFavoriteImages(id: String?) = local.getFavoriteImages(id)
+    suspend fun alreadyFavorite(id: String?) = local.getImage(id)
+
+    suspend fun getPhotoDetail(id: String?) = remote.getPhotoDetail(id)
 }

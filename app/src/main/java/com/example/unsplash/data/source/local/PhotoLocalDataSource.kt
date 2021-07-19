@@ -8,10 +8,11 @@ class PhotoLocalDataSource(private val imageDao: ImageDao) : PhotoDataSource.Loc
 
     override suspend fun getImages(): List<ImageLocal> = imageDao.getImages()
 
-    override suspend fun insertImages(imageLocal: ImageLocal) = imageDao.insertImages(imageLocal)
+    override suspend fun insertImage(imageLocal: ImageLocal) =
+        imageDao.insertImages(imageLocal)
 
-    override suspend fun deleteImages(imageLocal: ImageLocal) = imageDao.deleteImages(imageLocal)
+    override suspend fun deleteImage(imageLocal: ImageLocal) =
+        imageDao.deleteImages(imageLocal)
 
-    override suspend fun getFavoriteImages(imageId: String?): ImageLocal =
-        imageDao.getFavoriteImages(imageId)
+    override suspend fun getImage(imageId: String?): ImageLocal = imageDao.getImage(imageId)
 }

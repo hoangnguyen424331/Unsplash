@@ -19,16 +19,16 @@ import org.koin.android.ext.android.inject
 
 class ImageDetailFragment : Fragment() {
 
-    private lateinit var binding: FragmentImageDetailBinding
     private var isFavorite = false
-    private var photoId: String? = null
+    private var photoID: String? = null
     private var imageFavorite: ImageLocal? = null
-    private val photoDetailViewModel: PhotoDetailViewModel by inject()
+    private lateinit var binding: FragmentImageDetailBinding
+    private val imageDetailViewModel: ImageDetailViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            photoId = it.getString(BUNDLE_PHOTO_ID)
+            photoID = it.getString(BUNDLE_PHOTO_ID)
         }
     }
 
@@ -50,15 +50,35 @@ class ImageDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        registerObserver()
-        handEvent()
+        setupObserver()
+        handleEvent()
     }
 
-    private fun registerObserver() = with(photoDetailViewModel) {
-        getPhotoDetail(photoId)
-        favoriteImages(photoId)
-        photoDetail.observe(viewLifecycleOwner, {
+    private fun handleEvent() {
+        binding.imageButtonFavorite.setOnClickListener {
+            if (!isFavorite) {
+                imageFavorite?.let { imageLocalData ->
+                    imageDetailViewModel.insertImage(imageLocalData)
+                }
+            } else {
+                imageFavorite?.let { imageLocalData ->
+                    imageDetailViewModel.deleteImage(imageLocalData)
+                }
+            }
+        }
+        binding.imageViewBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun setupObserver() = with(imageDetailViewModel) {
+        getPhotoDetail(photoID)
+        alreadyFavorite(photoID)
+        photoDetailLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
+                Status.LOADING -> {
+                    binding.progressLayout.toVisible()
+                }
                 Status.SUCCESS -> {
                     it.data.run {
                         binding.photoDetail = this
@@ -69,13 +89,15 @@ class ImageDetailFragment : Fragment() {
                 Status.ERROR -> {
                     binding.progressLayout.toGone()
                 }
-                Status.LOADING -> {
-                    binding.progressLayout.toVisible()
-                }
             }
         })
         isFavorite.observe(viewLifecycleOwner, {
+            it.data?.let { isFavoriteData ->
+                this@ImageDetailFragment.isFavorite = isFavoriteData
+            }
             when (it.status) {
+                Status.LOADING -> {
+                }
                 Status.SUCCESS -> {
                     if (it.data == true) {
                         binding.imageButtonFavorite.setImageResource(R.drawable.ic_favorite_checked)
@@ -85,14 +107,12 @@ class ImageDetailFragment : Fragment() {
                 }
                 Status.ERROR -> {
                 }
-                Status.LOADING -> {
-                }
             }
         })
     }
 
-    private fun setData(photoDetail: PhotoDetail?) {
-        photoDetail?.apply {
+    private fun setData(data: PhotoDetail?) {
+        data?.apply {
             id?.let {
                 imageFavorite = ImageLocal(
                     it,
@@ -100,27 +120,10 @@ class ImageDetailFragment : Fragment() {
                     authorInformation.name,
                     authorInformation.avatar.smallAvatar,
                     views,
-                    downloads,
-                    likes
+                    likes,
+                    downloads
                 )
             }
-        }
-    }
-
-    private fun handEvent() {
-        binding.imageButtonFavorite.setOnClickListener {
-            if (!isFavorite) {
-                imageFavorite?.let {
-                    photoDetailViewModel.insertImages(it)
-                }
-            } else {
-                imageFavorite?.let {
-                    photoDetailViewModel.deleteImages(it)
-                }
-            }
-        }
-        binding.imageBack.setOnClickListener {
-            findNavController().popBackStack()
         }
     }
 

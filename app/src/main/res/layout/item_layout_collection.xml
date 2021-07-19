@@ -2,17 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="onItemClickListener"
-            type="com.example.unsplash.utils.OnItemClickListener" />
-
-        <variable
-            name="collection"
-            type="com.example.unsplash.data.model.Collection" />
-    </data>
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,14 +13,14 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
-                app:onLoadImageStaggered="@{collection.photoCollection.image.small}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->onItemClickListener.onItemClick(collection)}"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:onLoadImageStaggered="@{collection.photoCollection.image.small}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -54,4 +43,15 @@
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <data>
+
+        <variable
+            name="onItemClickListener"
+            type="com.example.unsplash.utils.OnItemClickListener" />
+
+        <variable
+            name="collection"
+            type="com.example.unsplash.data.model.Collection" />
+    </data>
 </layout>

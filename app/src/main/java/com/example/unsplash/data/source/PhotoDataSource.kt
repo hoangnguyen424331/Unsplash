@@ -25,10 +25,10 @@ class PhotoDataSource {
 
         suspend fun getImages(): List<ImageLocal>
 
-        suspend fun insertImages(imageLocal: ImageLocal)
+        suspend fun insertImage(imageLocal: ImageLocal)
 
-        suspend fun deleteImages(imageLocal: ImageLocal)
+        suspend fun deleteImage(imageLocal: ImageLocal)
 
-        suspend fun getFavoriteImages(imageId: String?): ImageLocal
+        suspend fun getImage(imageId: String?): ImageLocal
     }
 }
