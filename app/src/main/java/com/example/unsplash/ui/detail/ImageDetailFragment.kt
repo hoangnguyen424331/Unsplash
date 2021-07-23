@@ -12,6 +12,7 @@ import com.example.unsplash.R
 import com.example.unsplash.data.model.PhotoDetail
 import com.example.unsplash.data.source.local.sqlite.entity.ImageLocal
 import com.example.unsplash.databinding.FragmentImageDetailBinding
+import com.example.unsplash.extentions.hideStatusBar
 import com.example.unsplash.extentions.toGone
 import com.example.unsplash.extentions.toVisible
 import com.example.unsplash.utils.Status
@@ -37,6 +38,7 @@ class ImageDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        requireActivity().hideStatusBar()
         binding = DataBindingUtil.inflate<FragmentImageDetailBinding>(
             inflater,
             R.layout.fragment_image_detail,

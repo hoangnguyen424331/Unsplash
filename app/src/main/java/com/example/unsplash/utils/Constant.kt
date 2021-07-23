@@ -11,4 +11,5 @@ object Constant {
     const val DATABASE_NAME = "unsplash"
     const val DEFAULT_ITEM = 10
     const val RANDOM_ITEM_COUNT = 5
+    const val DEFAULT_STRING = ""
 }
