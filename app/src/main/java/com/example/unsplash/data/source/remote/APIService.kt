@@ -1,16 +1,14 @@
 package com.example.unsplash.data.source.remote
 
+import com.example.unsplash.data.model.*
 import com.example.unsplash.data.model.Collection
-import com.example.unsplash.data.model.PhotoCollection
-import com.example.unsplash.data.model.PhotoDetail
-import com.example.unsplash.data.model.Topic
 import com.example.unsplash.utils.Constant.DEFAULT_PAGE
 import com.example.unsplash.utils.Constant.RANDOM_ITEM_COUNT
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface  APIService {
+interface APIService {
 
     @GET("/collections")
     suspend fun getCollections(
@@ -37,4 +35,16 @@ interface  APIService {
     suspend fun getPhotoDetail(
         @Path("id") id: String?
     ): PhotoDetail
+
+    @GET("search/photos")
+    suspend fun getSearchPhoto(
+        @Query("query") keyword: String,
+        @Query("page") page: Int = DEFAULT_PAGE
+    ): SearchPhoto
+
+    @GET("search/collections")
+    suspend fun getSearchCollection(
+        @Query("query") keyword: String,
+        @Query("page") page: Int = DEFAULT_PAGE
+    ): SearchCollection
 }

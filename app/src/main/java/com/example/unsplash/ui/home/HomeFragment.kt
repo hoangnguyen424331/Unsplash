@@ -6,11 +6,15 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.unsplash.R
 import com.example.unsplash.data.model.PhotoCollection
 import com.example.unsplash.databinding.FragmentHomeBinding
 import com.example.unsplash.extentions.toGone
 import com.example.unsplash.extentions.toVisible
+import com.example.unsplash.ui.detail.ImageDetailFragment
 import com.example.unsplash.ui.home.adapter.HomeSlideAdapter
 import com.example.unsplash.ui.home.adapter.HomeTopicsAdapter
 import com.example.unsplash.utils.Status
@@ -24,7 +28,12 @@ class HomeFragment : Fragment() {
     private val images = mutableListOf<PhotoCollection>()
     private val homeViewModel: HomeViewModel by inject()
     private val homeAdapter by lazy {
-        HomeSlideAdapter(requireActivity(), images) {}
+        HomeSlideAdapter(requireActivity(), images) {
+            findNavController().navigate(
+                R.id.imageDetailFragment,
+                bundleOf(ImageDetailFragment.BUNDLE_PHOTO_ID to it)
+            )
+        }
     }
     private val homeTopicsAdapter by lazy {
         HomeTopicsAdapter { }

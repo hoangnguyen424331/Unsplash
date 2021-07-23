@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.example.unsplash.R
 import com.example.unsplash.databinding.FragmentHomePageBinding
@@ -34,7 +35,11 @@ class HomePageFragment : Fragment() {
         onEvent()
     }
 
-    private fun onEvent() {}
+    private fun onEvent() {
+        binding.imageViewSearch.setOnClickListener {
+            findNavController().navigate(R.id.searchFragment)
+        }
+    }
 
     private fun onInitNav() {
         binding.bottomNavHomePge.setOnNavigationItemSelectedListener {

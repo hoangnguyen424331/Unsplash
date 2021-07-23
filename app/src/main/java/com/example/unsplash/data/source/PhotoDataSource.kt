@@ -5,6 +5,8 @@ import com.example.unsplash.data.model.PhotoCollection
 import com.example.unsplash.data.model.PhotoDetail
 import com.example.unsplash.data.model.Topic
 import com.example.unsplash.data.source.local.sqlite.entity.ImageLocal
+import com.example.unsplash.data.model.SearchCollection
+import com.example.unsplash.data.model.SearchPhoto
 
 class PhotoDataSource {
 
@@ -19,6 +21,10 @@ class PhotoDataSource {
         suspend fun getRandomPhotos(): MutableList<PhotoCollection>
 
         suspend fun getPhotoDetail(id: String?): PhotoDetail
+
+        suspend fun getSearchCollection(keyword: String, page: Int): SearchCollection
+
+        suspend fun getSearchPhoto(keyword: String, page: Int): SearchPhoto
     }
 
     interface Local {

@@ -30,4 +30,10 @@ class PhotoRepository(
     suspend fun deleteImage(imageLocal: ImageLocal) = local.deleteImage(imageLocal)
 
     suspend fun alreadyFavorite(id: String?) = local.getImage(id)
+
+    suspend fun searchCollections(keyword: String, page: Int = DEFAULT_PAGE) =
+        remote.getSearchCollection(keyword, page)
+
+    suspend fun searchPhotos(keyword: String, page: Int = DEFAULT_PAGE) =
+        remote.getSearchPhoto(keyword, page)
 }
