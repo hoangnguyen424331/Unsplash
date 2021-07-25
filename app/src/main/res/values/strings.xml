@@ -13,4 +13,8 @@
     <string name="title">Title</string>
     <string name="counter_photo">%s Photos</string>
     <string name="search_hint">Search</string>
+    <string name="unlock_scroll_view">Unlock Scroll View</string>
+    <string name="lock_scroll_view">Lock Scroll View</string>
+    <string name="rate_limit_exceeded">Rate Limit Exceeded</string>
+    <string name="no_network_connection">No Network Connection</string>
 </resources>

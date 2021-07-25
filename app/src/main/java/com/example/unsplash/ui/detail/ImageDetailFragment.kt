@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,14 +17,18 @@ import com.example.unsplash.databinding.FragmentImageDetailBinding
 import com.example.unsplash.extentions.hideStatusBar
 import com.example.unsplash.extentions.toGone
 import com.example.unsplash.extentions.toVisible
+import com.example.unsplash.utils.ErrorMessage
 import com.example.unsplash.utils.Status
+import com.example.unsplash.widgets.CustomImageFilterView
 import org.koin.android.ext.android.inject
 
+@Suppress("DEPRECATION")
 class ImageDetailFragment : Fragment() {
 
     private var isFavorite = false
     private var photoID: String? = null
     private var imageFavorite: ImageLocal? = null
+    private var isScroll = false
     private lateinit var binding: FragmentImageDetailBinding
     private val imageDetailViewModel: ImageDetailViewModel by inject()
 
@@ -71,6 +77,69 @@ class ImageDetailFragment : Fragment() {
         binding.imageViewBack.setOnClickListener {
             findNavController().popBackStack()
         }
+        handFilter()
+        handDraw()
+    }
+
+    private fun handFilter() = with(binding) {
+        seekBarSaturation.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                imageViewDetail.saturation = (progress / MAX_PERCENT) * NUMBER_TWO
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        seekBarContrast.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                imageViewDetail.contrast = (progress / MAX_PERCENT) * NUMBER_TWO
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        seekBarWarmth.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                imageViewDetail.warmth = (progress / MAX_PERCENT) * NUMBER_TWO
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+    }
+
+    private fun handDraw() {
+        binding.run {
+            imageButtonDraw.setOnClickListener {
+                if (isScroll) {
+                    isScroll = false
+                    CustomImageFilterView.isDraw = false
+                    scrollViewDetail.setScrollingEnabled(true)
+                    it.setBackgroundColor(resources.getColor(R.color.gray))
+                    Toast.makeText(
+                        context,
+                        getString(R.string.unlock_scroll_view),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    isScroll = true
+                    CustomImageFilterView.isDraw = true
+                    scrollViewDetail.setScrollingEnabled(false)
+                    it.setBackgroundColor(resources.getColor(R.color.teal_200))
+                    Toast.makeText(
+                        context,
+                        getString(R.string.lock_scroll_view),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun setupObserver() = with(imageDetailViewModel) {
@@ -90,6 +159,14 @@ class ImageDetailFragment : Fragment() {
                 }
                 Status.ERROR -> {
                     binding.progressLayout.toGone()
+                    when(it.message.toString()) {
+                        ErrorMessage.RATE_LIMIT_EXCEEDED -> {
+                            Toast.makeText(context, getString(R.string.rate_limit_exceeded), Toast.LENGTH_SHORT).show()
+                        }
+                        ErrorMessage.NO_NETWORK_CONNECTION -> {
+                            Toast.makeText(context, getString(R.string.no_network_connection), Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         })
@@ -118,7 +195,7 @@ class ImageDetailFragment : Fragment() {
             id?.let {
                 imageFavorite = ImageLocal(
                     it,
-                    urlPhoto.thumb,
+                    urlPhoto.regular,
                     authorInformation.name,
                     authorInformation.avatar.smallAvatar,
                     views,
@@ -131,6 +208,8 @@ class ImageDetailFragment : Fragment() {
 
     companion object {
         const val BUNDLE_PHOTO_ID = "BUNDLE_PHOTO_ID"
+        private const val MAX_PERCENT = 100F
+        private const val NUMBER_TWO = 2
 
         fun newInstance(id: String?) = ImageDetailFragment().apply {
             arguments = bundleOf(BUNDLE_PHOTO_ID to id)

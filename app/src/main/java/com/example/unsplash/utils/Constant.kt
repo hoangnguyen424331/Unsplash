@@ -13,3 +13,8 @@ object Constant {
     const val RANDOM_ITEM_COUNT = 5
     const val DEFAULT_STRING = ""
 }
+
+object ErrorMessage {
+    const val RATE_LIMIT_EXCEEDED = "retrofit2.HttpException: HTTP 403 "
+    const val NO_NETWORK_CONNECTION = "retrofit2.HttpException: HTTP 401 "
+}
