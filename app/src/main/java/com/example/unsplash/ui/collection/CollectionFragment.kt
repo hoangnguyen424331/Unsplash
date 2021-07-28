@@ -13,6 +13,7 @@ import com.example.unsplash.databinding.FragmentCollectionBinding
 import com.example.unsplash.ui.collection.adapter.CollectionAdapter
 import org.koin.android.ext.android.inject
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+import com.example.unsplash.ui.photo_collection.PhotoCollectionFragment
 import com.example.unsplash.utils.Status
 
 class CollectionFragment : Fragment() {
@@ -53,7 +54,7 @@ class CollectionFragment : Fragment() {
         collectionAdapter.setOnclickItem {
             findNavController().navigate(
                 R.id.photoCollectionFragment,
-                bundleOf(BUNDLE_COLLECTION to it)
+                bundleOf(PhotoCollectionFragment.BUNDLE_COLLECTION to it)
             )
         }
     }
@@ -76,6 +77,7 @@ class CollectionFragment : Fragment() {
 
     companion object {
         const val BUNDLE_COLLECTION = "BUNDLE_COLLECTION"
+
         fun newInstance() = CollectionFragment()
     }
 }

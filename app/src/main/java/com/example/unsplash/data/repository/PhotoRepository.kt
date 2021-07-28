@@ -36,4 +36,7 @@ class PhotoRepository(
 
     suspend fun searchPhotos(keyword: String, page: Int = DEFAULT_PAGE) =
         remote.getSearchPhoto(keyword, page)
+
+    suspend fun getPhotosTopic(id: String, page: Int = DEFAULT_PAGE) =
+        remote.getPhotosTopic(id, page)
 }

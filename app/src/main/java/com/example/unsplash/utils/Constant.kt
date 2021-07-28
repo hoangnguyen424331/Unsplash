@@ -12,6 +12,8 @@ object Constant {
     const val DEFAULT_ITEM = 10
     const val RANDOM_ITEM_COUNT = 5
     const val DEFAULT_STRING = ""
+    const val API_COLLECTION = "Collection"
+    const val API_TOPIC = "Topic"
 }
 
 object ErrorMessage {

@@ -25,6 +25,8 @@ class PhotoDataSource {
         suspend fun getSearchCollection(keyword: String, page: Int): SearchCollection
 
         suspend fun getSearchPhoto(keyword: String, page: Int): SearchPhoto
+
+        suspend fun getPhotosTopic(id: String, page: Int): MutableList<PhotoCollection>
     }
 
     interface Local {
