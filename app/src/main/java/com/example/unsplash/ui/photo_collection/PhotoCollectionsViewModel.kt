@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.unsplash.data.model.PhotoCollection
 import com.example.unsplash.data.repository.PhotoRepository
 import com.example.unsplash.extentions.plusAssign
+import com.example.unsplash.utils.Constant.API_COLLECTION
 import com.example.unsplash.utils.Constant.DEFAULT_ID
 import com.example.unsplash.utils.Constant.DEFAULT_PAGE
 import com.example.unsplash.utils.LoadMoreRecyclerViewListener
@@ -20,6 +21,7 @@ class PhotoCollectionsViewModel(private val photoRepository: PhotoRepository) :
 
     private var currentPosition = DEFAULT_PAGE
     private var id: String = DEFAULT_ID
+    private var api: String = DEFAULT_ID
 
     private val _resource = MutableLiveData<Resource<LiveData<MutableList<PhotoCollection>>>>()
     val resource: LiveData<Resource<LiveData<MutableList<PhotoCollection>>>>
@@ -35,24 +37,26 @@ class PhotoCollectionsViewModel(private val photoRepository: PhotoRepository) :
 
     override fun onLoadData() {
         _isLoading.value = true
-        fetchCollections(id)
+        fetchCollections(id, api)
     }
 
     override fun onRefreshData() {
         _photoCollection.value?.clear()
         currentPosition = DEFAULT_PAGE
-        fetchCollections(id)
+        fetchCollections(id, api)
     }
 
-    fun fetchCollections(id: String) {
+    fun fetchCollections(id: String, api: String) {
         viewModelScope.launch {
             try {
                 this@PhotoCollectionsViewModel.id = id
+                this@PhotoCollectionsViewModel.api = api
                 _photoCollection.plusAssign(
-                    photoRepository.getPhotosCollections(
-                        id,
-                        currentPosition
-                    )
+                    if (api == API_COLLECTION) {
+                        photoRepository.getPhotosCollections(id, currentPosition)
+                    } else {
+                        photoRepository.getPhotosTopic(id, currentPosition)
+                    }
                 )
                 _resource.postValue(Resource.success(data = photoCollection))
                 currentPosition++

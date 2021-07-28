@@ -70,4 +70,6 @@ class ImageDetailViewModel(
             }
         }
     }
+
+    fun getUrlImage() = _photoDetailLiveData.value?.data?.urlPhoto?.small
 }

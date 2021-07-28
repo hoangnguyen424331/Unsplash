@@ -19,6 +19,7 @@ import com.example.unsplash.extentions.toGone
 import com.example.unsplash.extentions.toVisible
 import com.example.unsplash.utils.ErrorMessage
 import com.example.unsplash.utils.Status
+import com.example.unsplash.utils.service.DownloadImage
 import com.example.unsplash.widgets.CustomImageFilterView
 import org.koin.android.ext.android.inject
 
@@ -79,6 +80,7 @@ class ImageDetailFragment : Fragment() {
         }
         handFilter()
         handDraw()
+        handDownload()
     }
 
     private fun handFilter() = with(binding) {
@@ -138,6 +140,14 @@ class ImageDetailFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            }
+        }
+    }
+
+    private fun handDownload() {
+        binding.imageButtonDownload.setOnClickListener {
+            imageDetailViewModel.getUrlImage()?.let { urlImage ->
+                DownloadImage.newInstance(requireActivity()).downloadImage(urlImage)
             }
         }
     }

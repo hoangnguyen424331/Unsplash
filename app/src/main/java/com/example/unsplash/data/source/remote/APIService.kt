@@ -47,4 +47,10 @@ interface APIService {
         @Query("query") keyword: String,
         @Query("page") page: Int = DEFAULT_PAGE
     ): SearchCollection
+
+    @GET("/topics/{id}/photos")
+    suspend fun getPhotoTopic(
+        @Path("id") id: String?,
+        @Query("page") page: Int = DEFAULT_PAGE
+    ): MutableList<PhotoCollection>
 }

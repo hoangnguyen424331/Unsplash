@@ -10,10 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.unsplash.R
 import com.example.unsplash.data.model.Collection
+import com.example.unsplash.data.model.Topic
 import com.example.unsplash.databinding.FragmentPhotoCollectionBinding
-import com.example.unsplash.ui.collection.CollectionFragment.Companion.BUNDLE_COLLECTION
-import com.example.unsplash.ui.detail.ImageDetailFragment.Companion.BUNDLE_PHOTO_ID
+import com.example.unsplash.ui.detail.ImageDetailFragment
 import com.example.unsplash.ui.photo_collection.adapter.PhotoCollectionAdapter
+import com.example.unsplash.utils.Constant
 import com.example.unsplash.utils.Status
 import org.koin.android.ext.android.inject
 
@@ -44,7 +45,18 @@ class PhotoCollectionFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         arguments?.getParcelable<Collection>(BUNDLE_COLLECTION)?.let {
-            photoCollectionsViewModel.fetchCollections(it.id)
+            photoCollectionsViewModel.fetchCollections(it.id, Constant.API_COLLECTION)
+            setTitle(Constant.API_COLLECTION, it.title)
+        } ?: arguments?.getParcelable<Topic>(BUNDLE_TOPIC)?.let {
+            photoCollectionsViewModel.fetchCollections(it.id, Constant.API_TOPIC)
+            setTitle(Constant.API_TOPIC, it.title)
+        }
+    }
+
+    private fun setTitle(apiName: String, title: String) {
+        binding.apply {
+            textViewTitleCollection.text = title
+            textTitle.text = apiName
         }
     }
 
@@ -65,7 +77,7 @@ class PhotoCollectionFragment : Fragment() {
         photoCollectionAdapter.setOnClickPhotoCollection {
             findNavController().navigate(
                 R.id.imageDetailFragment,
-                bundleOf(BUNDLE_PHOTO_ID to it.id)
+                bundleOf(ImageDetailFragment.BUNDLE_PHOTO_ID to it.id)
             )
         }
     }
@@ -84,5 +96,10 @@ class PhotoCollectionFragment : Fragment() {
                 }
             }
         })
+    }
+
+    companion object {
+        const val BUNDLE_TOPIC = "BUNDLE_TOPIC"
+        const val BUNDLE_COLLECTION = "BUNDLE_COLLECTION"
     }
 }

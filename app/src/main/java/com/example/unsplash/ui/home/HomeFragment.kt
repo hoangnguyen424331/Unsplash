@@ -17,6 +17,7 @@ import com.example.unsplash.extentions.toVisible
 import com.example.unsplash.ui.detail.ImageDetailFragment
 import com.example.unsplash.ui.home.adapter.HomeSlideAdapter
 import com.example.unsplash.ui.home.adapter.HomeTopicsAdapter
+import com.example.unsplash.ui.photo_collection.PhotoCollectionFragment
 import com.example.unsplash.utils.Status
 import org.koin.android.ext.android.inject
 import java.util.*
@@ -36,7 +37,12 @@ class HomeFragment : Fragment() {
         }
     }
     private val homeTopicsAdapter by lazy {
-        HomeTopicsAdapter { }
+        HomeTopicsAdapter {
+            findNavController().navigate(
+                R.id.photoCollectionFragment,
+                bundleOf(PhotoCollectionFragment.BUNDLE_TOPIC to it)
+            )
+        }
     }
 
     override fun onCreateView(
